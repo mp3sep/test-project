@@ -1,0 +1,152 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+<div class="wrapper">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <button class="btn btn-primary mb-2" data-target="#add-new" data-toggle="modal">add new</button>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>User ID</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>
+                                <span class="wpx-200">Action</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of userData">
+                            <td>{{data.id}}</td>
+                            <td>{{data?.title}}</td>
+                            <td>{{data?.author}}</td>
+                            <td>
+                                <span class="d-flex">
+                                <!-- <button class="btn btn-sm btn-info mr-1" data-toggle="modal" data-target="#viewDataModal" (click)="viewFn(data)">
+                                    <mat-icon>remove_red_eye</mat-icon>
+                                </button> -->
+                                <button class="btn btn-sm btn-warning mr-1" data-toggle="modal" data-target="#viewDataModal" (click)="editFn(data)">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button class="btn btn-sm btn-danger" (click)="deleteUser(data.id)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="viewDataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">{{modalDetails}}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="commanForm">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="d-block">Title</label>
+                                <input type="text" name="title" formControlName="title" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="d-block">Author</label>
+                                <input type="text" name="author" formControlName="author" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" (click)="editnew(commanForm.value)">Change</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="add-new" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Add New</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formName" (ngSubmit)="formSubmit()">
+                    <div class="row ">
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="d-block">Title</label>
+                                <input type="text" formControlName="title" class="form-control" value="">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="d-block">Author</label>
+                                <input type="text" formControlName="author" class="form-control" value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Change</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
